@@ -802,3 +802,41 @@ body {
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
+/* Telas pequenas */
+@media (min-width: 786px) {
+    .principal { padding-inline: var(--espacamento-6); }
+}
+
+/* Telas médias */
+@media (min-width: 992px) {
+    body { padding-inline-start: var(--sidebar-width); }
+
+    .overlay:not(.overlay-modal) { display: none; }
+
+    .sidebar {
+        visibility: visible;
+        left: 0;
+        height: 100vh;
+        grid-template-rows: repeat(3, max-content) 1fr max-content;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .sidebar.ativa { transform: unset; }
+
+    .sidebar .fab { display: flex; }
+
+    .principal { padding-inline: var(--espacamento-10); }
+
+    .menu-btn,
+    .principal .fab { display: none; }
+}
+
+/* Telas grandes */
+@media (min-width: 1400px) {
+    .principal {
+        max-width: 1480px;
+        width: 100%;
+        margin-inline: auto;
+    }
+}
