@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" tema="escuro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Buddy | Seu organizador de estudos</title>
+    <meta name="title" content="Study Buddy | Seu organizador de estudos">
+    <meta name="description" content="Organize seus estudos com o Study Buddy.">
+
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+
+    <script src="./assets/js/app.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <script type="module" src="./assets/js/app.js"></script>
+
+</head>
+<body>
+    
+    <header class="sidebar" dados-sidebar>
+        <div class="wrapper wrapper-1">
+            <a href="/">
+                <img src="./assets/images/logo-escura.svg" alt="Study Buddy" class="logo-escura">
+                <img src="./assets/images/logo-clara.svg" alt="Study Buddy" class="logo-clara">
+            </a>
+            <button class="menu-btn icon-btn g" aria-label="Fechar menu" dados-sidebar-toggler>
+                <span class="material-symbols-rounded" aria-hidden="true">close</span>
+
+                <div class="state-layer"></div>
+            </button>
+        </div>
+
+        <button class="fab" dados-criar-nota-btn>
+            <span class="material-symbols-rounded" aria-hidden="true">add</span>
+
+            <span class="texto texto-label-g">Nova nota</span>
+
+            <div class="state-layer"></div>
+        </button>
+
+        <div class="wrapper wrapper-2">
+            <h2 class="texto-titulo-m">Cadernos</h2>
+            <button class="icon-btn m" data-tooltip="Criar novo caderno" aria-label="Criar novo caderno" dados-adicionar-caderno>
+                <span class="material-symbols-rounded" aria-hidden="true">add</span>
+
+                <div class="state-layer"></div>
+            </button>
+        </div>
+
+        <nav class="nav scrollbar-customizada" dados-lista-sidebar>
+            <div class="nav-item ativa">
+                <span class="texto texto-label-g" dados-campos-caderno>Meus Cadernos</span>
+
+                <button class="icon-btn p" aria-label="Editar caderno" data-tooltip="Editar caderno" dados-btn-editar>
+                    <span class="material-symbols-rounded" aria-hidden="true">edit</span>
+
+                    <div class="state-layer"></div>
+                </button>
+
+                <button class="icon-btn p" aria-label="Apagar caderno" data-tooltip="Apagar caderno" dados-btn-editar>
+                    <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+
+                    <div class="state-layer"></div>
+                </button>
+
+                <div class="state-layer"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="overlay" dados-sidebar-overlay dados-sidebar-toggler></div>
+
+    <main class="principal">
+        <div class="header">
+            <div class="wrapper">
+                <p class="titulo texto-titulo-g" dados-saudacao>Bom dia</p>
+                <span class="texto texto-body-m" dados-data>Sábado, 23 out. 2024</span>
+            </div>
+            <button class="tema-btn icon-btn g" aria-label="Mudar tema" data-tooltip="Mudar tema" dados-botao-tema>
+                <span class="material-symbols-rounded icone-escuro" aria-hidden="true">dark_mode</span>
+                <span class="material-symbols-rounded icone-claro" aria-hidden="true">light_mode</span>
+                <div class="state-layer"></div>
+            </button>
+            <button class="menu-btn icon-btn g" aria-label="Abrir menu" dados-ativar-sidebar>
+                <span class="material-symbols-rounded icone-escuro" aria-hidden="true">menu</span>
+
+                <div class="state-layer"></div>
+            </button>
+        </div>
+
+        <h2 class="titulo texto-titulo-m" dados-titulo-painel-notas>Meu caderno</h2>
+
+        <div class="lista-notas" dados-painel-notas>
+            <div class="nota">
+                <h3 class="titulo-nota texto-titulo-m">Título da nota</h3>
+                <p class="texto-nota texto-body-g">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi ipsum aliquid accusamus veritatis in sint consectetur aperiam voluptatibus quisquam soluta fugiat est voluptatum commodi vel sapiente, eius saepe error possimus!</p>
+                <div class="wrapper">
+                    <span class="hora-nota texto-label-g">20 min atrás</span>
+                    <button class="icon-btn g" aria-label="Excluir nota" data-tooltip="Excluir nota">
+                        <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+                        <div class="state-layer"></div>
+                    </button>
+                </div>
+                <div class="state-layer"></div>
+            </div>
+        </div>
+
+        <button class="fab" aria-label="Adicionar nota" ddados-criar-nota-btn>
+            <span class="material-symbols-rounded" aria-hidden="true">add</span>
+            <div class="state-layer"></div>
+        </button>
+    </main>
+
+</body>
+</html>
