@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" tema="escuro">
+<html lang="pt-BR" tema="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
 
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/theme.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +55,7 @@
         </div>
 
         <nav class="nav scrollbar-customizada" data-lista-sidebar>
-            <div class="nav-item ativa">
+            <div class="nav-item">
                 <span class="texto texto-label-g" data-campos-caderno>Meus Cadernos</span>
 
                 <button class="icon-btn p" aria-label="Editar caderno" data-tooltip="Editar caderno" data-btn-editar>
@@ -64,7 +64,7 @@
                     <div class="state-layer"></div>
                 </button>
 
-                <button class="icon-btn p" aria-label="Apagar caderno" data-tooltip="Apagar caderno" data-btn-editar>
+                <button class="icon-btn p" aria-label="Apagar caderno" data-tooltip="Apagar caderno" data-btn-apagar>
                     <span class="material-symbols-rounded" aria-hidden="true">delete</span>
 
                     <div class="state-layer"></div>
@@ -80,16 +80,16 @@
     <main class="principal">
         <div class="header">
             <div class="wrapper">
-                <p class="titulo texto-titulo-g" data-saudacao>Bom dia</p>
+                <p class="titulo texto-titulo-g" data-saudacao></p>
                 <span class="texto texto-body-m" data-data>Sábado, 23 out. 2024</span>
             </div>
-            <button class="tema-btn icon-btn g" aria-label="Mudar tema" data-tooltip="Mudar tema" data-botao-tema>
-                <span class="material-symbols-rounded icone-escuro" aria-hidden="true">dark_mode</span>
-                <span class="material-symbols-rounded icone-claro" aria-hidden="true">light_mode</span>
+            <button class="tema-btn icon-btn g" aria-label="Mudar tema" data-tooltip="Mudar tema" data-tema-btn>
+                <span class="material-symbols-rounded icone-dark" aria-hidden="true">dark_mode</span>
+                <span class="material-symbols-rounded icone-light" aria-hidden="true">light_mode</span>
                 <div class="state-layer"></div>
             </button>
-            <button class="menu-btn icon-btn g" aria-label="Abrir menu" data-ativar-sidebar>
-                <span class="material-symbols-rounded icone-escuro" aria-hidden="true">menu</span>
+            <button class="menu-btn icon-btn g" aria-label="Abrir menu" data-sidebar-toggler>
+                <span class="material-symbols-rounded icone-dark" aria-hidden="true">menu</span>
 
                 <div class="state-layer"></div>
             </button>
@@ -152,8 +152,6 @@
                 </button>
             </div>
         </div> -->
-
-        <!-- <span class="tooltip texto-body-p">Tooltip</span> -->
 
         <!-- <div class="notas-vazias">
             <span class="material-symbols-rounded" aria-hidden="true">note_stack</span>
