@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * @param {Array<HTMLElement>} $elementos;
- * @param {string} tipoEvento;
- * @param {Function} callback; 
+ * @param {Array<HTMLElement>} $elementos
+ * @param {string} tipoEvento
+ * @param {Function} callback
  */
 
 const addEventoEmElementos = function($elementos, tipoEvento, callback) { 
@@ -11,8 +11,8 @@ const addEventoEmElementos = function($elementos, tipoEvento, callback) {
 }
 
 /**
- * @param {number} horaAtual;
- * @returns {string} tipoEvento;
+ * @param {number} horaAtual
+ * @returns {string}
  */
 
 const getSaudacao = function (horaAtual) {
@@ -27,7 +27,36 @@ const getSaudacao = function (horaAtual) {
     return `${prefixo} ${saudacao}!`;
 }
 
+let /** {HTMLElement | undefined} */ $ultimoNavItemAtivo;
+
+const cadernoAtivo = function () {
+    $ultimoNavItemAtivo?.classList.remove('ativa');
+    this.classList.add('ativa');
+    $ultimoNavItemAtivo = this;
+}
+
+/**
+ * @param {HTMLElement} $elemento
+ */
+
+const tornaElemEditavel = function ($elemento) {
+    $elemento.setAttribute('contenteditable', true);
+    $elemento.setAttribute('spellcheck', false);
+    $elemento.focus();
+}
+
+/**
+ * @returns {string}
+ */
+
+const geraID = function () {
+    return new Date().getTime().toString();
+}
+
 export {
     addEventoEmElementos,
-    getSaudacao
+    getSaudacao,
+    cadernoAtivo,
+    tornaElemEditavel,
+    geraID
 }

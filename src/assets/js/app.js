@@ -1,7 +1,9 @@
 'use strict';
 
-import { addEventoEmElementos, getSaudacao } from "./utils.js";
+import { addEventoEmElementos, getSaudacao, cadernoAtivo, tornaElemEditavel } from "./utils.js";
 import { Tooltip } from "./components/Tooltip.js";
+import { database } from "./database.js";
+import { client } from "./client.js";
 
 const /** {HTMLElement} */ $sidebar = document.querySelector('[data-sidebar]');
 const /** {Array<HTMLElement>} */ $sidebarTogglers = document.querySelectorAll('[data-sidebar-toggler]');
@@ -25,3 +27,48 @@ let dataAtual = new Date().toLocaleDateString('pt-BR', opcoesData);
 dataAtual = dataAtual.replace(/-feira/g, '').trim();
 dataAtual = dataAtual.charAt(0).toUpperCase() + dataAtual.slice(1);
 $dataAtualElem.textContent = dataAtual;
+
+const /** {HTMLElement} */ $sidebarLista = document.querySelector('[data-lista-sidebar]');
+const /** {HTMLElement} */ $addCadernoBtn = document.querySelector('[data-adicionar-caderno]');
+
+const mostraCampoCaderno = function () {
+    const /** {HTMLElement} */ $navItem = document.createElement('div');
+    $navItem.classList.add('nav-item');
+
+    $navItem.innerHTML = `
+        <span class="texto texto-label-g" data-campos-caderno></span>
+        <div class="state-layer"></div>
+    `;
+
+    $sidebarLista.appendChild($navItem);
+    
+    const /** {HTMLElement} */ $campoNavItem = $navItem.querySelector('[data-campos-caderno]');
+
+    cadernoAtivo.call($navItem);
+
+    tornaElemEditavel($campoNavItem);
+
+    $campoNavItem.addEventListener('keydown', criaCaderno);
+}
+
+$addCadernoBtn.addEventListener('click', mostraCampoCaderno);
+
+/**
+ * @param {KeyboardEvent} evento 
+ */
+
+const criaCaderno = function (evento) {
+    if(evento.key === 'Enter') {
+        const /** {Object} */ conteudoCaderno = database.post.caderno(this.textContent || 'Sem nome');
+        this.parentElement.remove();
+
+        client.caderno.cria(conteudoCaderno);
+    }
+}
+
+const mostraCadernos = function () {
+    const /** {Array} */ listaDeCadernos = database.get.caderno();
+    client.caderno.le(listaDeCadernos);
+}
+
+mostraCadernos();

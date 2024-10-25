@@ -715,7 +715,11 @@ body {
     --state-layer-bg: var(--on-secondary-container);
 }
 
-.nav-item .texto { flex-grow: 1; }
+.nav-item .texto {
+    flex-grow: 1;
+    outline: none;
+    border: none;
+}
 
 .nav-item .icon-btn {
     opacity: 0;
