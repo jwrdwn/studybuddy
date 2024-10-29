@@ -1,11 +1,12 @@
 'use strict';
 
+import { database } from "./database.js";
+
 /**
  * @param {Array<HTMLElement>} $elementos
  * @param {string} tipoEvento
  * @param {Function} callback
  */
-
 const addEventoEmElementos = function($elementos, tipoEvento, callback) { 
     $elementos.forEach($elemento => $elemento.addEventListener(tipoEvento, callback));
 }
@@ -14,7 +15,6 @@ const addEventoEmElementos = function($elementos, tipoEvento, callback) {
  * @param {number} horaAtual
  * @returns {string}
  */
-
 const getSaudacao = function (horaAtual) {
     const /** {string} */ saudacao =
         horaAtual < 5 ? 'noite' :
@@ -38,7 +38,6 @@ const cadernoAtivo = function () {
 /**
  * @param {HTMLElement} $elemento
  */
-
 const tornaElemEditavel = function ($elemento) {
     $elemento.setAttribute('contenteditable', true);
     $elemento.setAttribute('spellcheck', false);
@@ -48,7 +47,6 @@ const tornaElemEditavel = function ($elemento) {
 /**
  * @returns {string}
  */
-
 const geraID = function () {
     return new Date().getTime().toString();
 }
@@ -85,6 +83,21 @@ const getTempoRelativo = function (milisegundos) {
     return minuto < 1 ? 'Agora mesmo' : minuto < 60 ? `${minuto} min atrás` : hora < 24 ? `${hora} horas atrás` : `${dia} dias atrás`;  
 }
 
+/**
+ * 
+ * @param {Object} database 
+ * @param {string} idNota 
+ * @returns {Object | undefined}
+ */
+const encontrarNota = (database, idNota) => {
+    let nota;
+    for(const caderno of database.cadernos) {
+        nota = caderno.notas.find(nota => nota.id === idNota);
+        if(nota) break;
+    }
+    return nota;
+}
+
 export {
     addEventoEmElementos,
     getSaudacao,
@@ -93,5 +106,6 @@ export {
     geraID,
     encontrarCaderno,
     encontrarIndiceCaderno,
-    getTempoRelativo
+    getTempoRelativo,
+    encontrarNota
 }

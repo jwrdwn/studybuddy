@@ -87,4 +87,16 @@ addEventoEmElementos($btnCriarNota, 'click', function () {
         client.nota.cria(conteudoNota);
         modal.fecha();        
     });
-})
+});
+
+const mostraNotasExistentes = function () {
+    const /** {string | undefined} */ idCadernoAtivo = document.querySelector('[data-caderno].ativa')?.dataset.caderno;
+
+    if(idCadernoAtivo) {
+        const /** {Array<Object>} */ listaDeNotas = database.get.nota(idCadernoAtivo);
+        
+        client.nota.le(listaDeNotas);
+    }
+}
+
+mostraNotasExistentes();

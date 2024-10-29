@@ -2,6 +2,9 @@
 
 import { Tooltip } from "./Tooltip.js";
 import { getTempoRelativo } from "../utils.js";
+import { ModalNotas } from "./Modal.js";
+import { database } from "../database.js";
+import { client } from "../client.js";
 
 /**
  * @param {Object} conteudoNota 
@@ -28,6 +31,19 @@ export const Card = function (conteudoNota) {
     `
 
     Tooltip($card.querySelector('[data-tooltip]'));
+
+    $card.addEventListener('click', function () {
+        const /** {Object} */ modal = ModalNotas(titulo, texto, getTempoRelativo(escritoEm));
+        modal.abre();
+
+        modal.envia(function (conteudoNota) {
+            const conteudoAtualizado = database.update.nota(id, conteudoNota);
+
+            client.nota.update(id, conteudoAtualizado);
+
+            modal.fecha();
+        });
+    });
 
     return $card;
 }

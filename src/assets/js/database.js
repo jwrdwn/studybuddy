@@ -1,6 +1,6 @@
 'use strict';
 
-import { geraID, encontrarCaderno, encontrarIndiceCaderno } from "./utils.js";
+import { geraID, encontrarCaderno, encontrarIndiceCaderno, encontrarNota } from "./utils.js";
 
 let /** {Object} */ studybuddyDB = {};
 
@@ -91,6 +91,18 @@ export const database = {
             readDatabase();
 
             return studybuddyDB.cadernos;
+        },
+
+        /**
+         * @function
+         * @param {string} idCaderno 
+         * @returns {Array<Object>}
+         */
+        nota(idCaderno) {
+            readDatabase();
+
+            const /** {Object} */ caderno = encontrarCaderno(studybuddyDB, idCaderno);
+            return caderno.notas;
         }
     },
 
@@ -110,6 +122,23 @@ export const database = {
             writeDatabase();
 
             return caderno;
+        },
+        
+        /**
+         * @function
+         * @param {string} idNota 
+         * @param {Object} objeto 
+         * @returns {Object}
+         */
+        nota(idNota, objeto) {
+            readDatabase();
+
+            const /** {Object} */ notaAntiga = encontrarNota(studybuddyDB, idNota);
+            const /** {Object} */ novaNota = Object.assign(notaAntiga, objeto);
+
+            writeDatabase();
+
+            return novaNota;
         }
     },
 

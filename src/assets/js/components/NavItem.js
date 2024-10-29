@@ -44,6 +44,9 @@ export const NavItem = function (id, nome) {
     $navItem.addEventListener('click', function () {
         $tituloPainelNotas.textContent = nome;
         cadernoAtivo.call(this);
+
+        const /** {Array} */ listaDeNotas = database.get.nota(this.dataset.caderno);
+        client.nota.le(listaDeNotas);
     });
 
     const /** {HTMLElement} */ $navItemBtnEditar = $navItem.querySelector('[data-btn-editar]');
