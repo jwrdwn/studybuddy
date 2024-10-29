@@ -1,6 +1,6 @@
 'use strict';
 
-import { geraID } from "./utils.js";
+import { geraID, encontrarCaderno, encontrarIndiceCaderno } from "./utils.js";
 
 let /** {Object} */ studybuddyDB = {};
 
@@ -55,6 +55,30 @@ export const database = {
             writeDatabase();
 
             return conteudoCaderno;
+        },
+
+        /**
+         * 
+         * @param {string} idCaderno 
+         * @param {Object} objeto 
+         * @returns {Object}
+         */
+        nota(idCaderno, objeto) {
+            readDatabase();
+
+            const /** {Object} */ caderno = encontrarCaderno(studybuddyDB, idCaderno);
+
+            const /** {Object} */ conteudoNota = {
+                id: geraID(),
+                idCaderno,
+                ... objeto,
+                escritoEm: new Date().getTime()
+            }
+            
+            caderno.notas.unshift(conteudoNota);
+            writeDatabase();
+
+            return conteudoNota;
         }
     },
 
@@ -67,6 +91,40 @@ export const database = {
             readDatabase();
 
             return studybuddyDB.cadernos;
+        }
+    },
+
+    update: {
+        /** 
+         * @function
+         * @param {string} idCaderno
+         * @param {string} nome
+         * @returns {Object}
+         */
+        caderno(idCaderno, nome) {
+            readDatabase();
+
+            const /** {Object} */ caderno = encontrarCaderno(studybuddyDB, idCaderno);
+            caderno.nome = nome;
+
+            writeDatabase();
+
+            return caderno;
+        }
+    },
+
+    deleta: {
+        /**
+         * @function
+         * @param {string} idCaderno
+         */
+        caderno(idCaderno) {
+            readDatabase();
+
+            const /** {Number} */ indiceCaderno = encontrarIndiceCaderno(studybuddyDB, idCaderno);
+            studybuddyDB.cadernos.splice(indiceCaderno, 1);            
+
+            writeDatabase();
         }
     }
 

@@ -1,7 +1,10 @@
 'use strict';
 
 import { Tooltip } from "./Tooltip.js";
-import { cadernoAtivo } from "../utils.js";
+import { cadernoAtivo, tornaElemEditavel } from "../utils.js";
+import { database } from "../database.js";
+import { client } from "../client.js";
+import { ModalConfirmarExclusao } from "./Modal.js";
 
 const /** {HTMLElement} */ $tituloPainelNotas = document.querySelector('[data-titulo-painel-notas]');
 
@@ -41,6 +44,37 @@ export const NavItem = function (id, nome) {
     $navItem.addEventListener('click', function () {
         $tituloPainelNotas.textContent = nome;
         cadernoAtivo.call(this);
+    });
+
+    const /** {HTMLElement} */ $navItemBtnEditar = $navItem.querySelector('[data-btn-editar]');
+    const /** {HTMLElement} */ $navItemCampo = $navItem.querySelector('[data-campos-caderno]');
+
+    $navItemBtnEditar.addEventListener('click', tornaElemEditavel.bind(null, $navItemCampo));
+
+    $navItemCampo.addEventListener('keydown', function (evento) {
+        if(evento.key === 'Enter') {
+            this.removeAttribute('contenteditable');
+
+            const atualizaCaderno = database.update.caderno(id, this.textContent);
+
+            client.caderno.update(id, atualizaCaderno);
+        }
+    });
+
+    const /** {HTMLElement} */ $navItemBtnApagar = $navItem.querySelector('[data-btn-apagar]');
+    $navItemBtnApagar.addEventListener('click', function () {
+        const /** {Object} */ modal = ModalConfirmarExclusao(nome);
+
+        modal.abre();
+
+        modal.envia(function (isConfirmar) {
+            if(isConfirmar) {
+                database.deleta.caderno(id);
+                client.caderno.deleta(id);
+            }
+            
+            modal.fecha();
+        });
     });
 
     return $navItem;

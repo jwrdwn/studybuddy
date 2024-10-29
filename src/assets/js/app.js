@@ -4,6 +4,7 @@ import { addEventoEmElementos, getSaudacao, cadernoAtivo, tornaElemEditavel } fr
 import { Tooltip } from "./components/Tooltip.js";
 import { database } from "./database.js";
 import { client } from "./client.js";
+import { ModalNotas } from "./components/Modal.js";
 
 const /** {HTMLElement} */ $sidebar = document.querySelector('[data-sidebar]');
 const /** {Array<HTMLElement>} */ $sidebarTogglers = document.querySelectorAll('[data-sidebar-toggler]');
@@ -72,3 +73,18 @@ const mostraCadernos = function () {
 }
 
 mostraCadernos();
+
+const /** {Array<HTMLElement>} */ $btnCriarNota = document.querySelectorAll('[data-btn-criar-nota]');
+
+addEventoEmElementos($btnCriarNota, 'click', function () {
+    const /** {Object} */ modal = ModalNotas();
+    modal.abre();
+
+    modal.envia(notaObj => {
+        const /** {string} */ idCadernoAtivo = document.querySelector('[data-caderno].ativa').dataset.caderno;
+
+        const /** {Object} */ conteudoNota = database.post.nota(idCadernoAtivo, notaObj);
+        client.nota.cria(conteudoNota);
+        modal.fecha();        
+    });
+})

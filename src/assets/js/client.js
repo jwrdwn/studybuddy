@@ -2,9 +2,11 @@
 
 import { NavItem } from "./components/NavItem.js";
 import { cadernoAtivo } from "./utils.js";
+import { Card } from "./components/Card.js";
 
 const /** {HTMLElement} */ $sidebarLista = document.querySelector('[data-lista-sidebar]');
 const /** {HTMLElement} */ $tituloPainelNotas = document.querySelector('[data-titulo-painel-notas]');
+const /** {HTMLElement} */ $painelNotas = document.querySelector('[data-painel-notas]');
 
 /**
  * @namespace
@@ -23,6 +25,7 @@ export const client = {
             cadernoAtivo.call($navItem);
             $tituloPainelNotas.textContent = conteudoCaderno.nome;
         },
+
         /**
          * @param {Array<Object>} listaDeCadernos
          */
@@ -37,6 +40,47 @@ export const client = {
 
                 $sidebarLista.appendChild($navItem);
             });
+        },
+
+        /**
+         * @param {string} idCaderno 
+         * @param {Object} dadosCaderno 
+         */
+        update(idCaderno, dadosCaderno) {
+            const /** {HTMLElement} */ $cadernoAntigo = document.querySelector(`[data-caderno="${idCaderno}"]`);
+            const /** {HTMLElement} */ $novoCaderno = NavItem(dadosCaderno.id, dadosCaderno.nome);
+
+            $tituloPainelNotas.textContent = dadosCaderno.nome;
+            $sidebarLista.replaceChild($novoCaderno, $cadernoAntigo);
+            cadernoAtivo.call($novoCaderno);
+        },
+
+        /**
+         * 
+         * @param {string} idCaderno 
+         */
+        deleta(idCaderno) {
+            const /** {HTMLElement} */ $cadernoApagado = document.querySelector(`[data-caderno="${idCaderno}"]`);
+            const /** {HTMLElement | null} */ $navItemAtivo = $cadernoApagado.nextElementSibling ?? $cadernoApagado.previousElementSibling;
+
+            if($navItemAtivo) {
+                $navItemAtivo.click();
+            } else {
+                $tituloPainelNotas.innerHTML = '';
+                // $painelNotas.innerHTML = '';
+            }
+
+            $cadernoApagado.remove();
+        }
+    },
+
+    nota: {
+        /**
+         * @param {Object} conteudoCaderno 
+         */
+        cria(conteudoCaderno) {
+            const /** {HTMLElement} */ $card = Card(conteudoCaderno);
+            $painelNotas.appendChild($card);
         }
     }
 }

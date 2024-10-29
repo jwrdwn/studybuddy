@@ -53,10 +53,45 @@ const geraID = function () {
     return new Date().getTime().toString();
 }
 
+/**
+ * @param {Object} db 
+ * @param {string} idCaderno
+ * @returns {Object | undefined} 
+ */
+const encontrarCaderno = function (db, idCaderno) {
+    return db.cadernos.find(caderno => caderno.id === idCaderno);
+}
+
+/**
+ * @param {Object} db 
+ * @param {string} idCaderno
+ * @returns {number} 
+ */
+const encontrarIndiceCaderno = function (db, idCaderno) {
+    return db.cadernos.findIndex(item => item.id === idCaderno);
+}
+
+/**
+ * @param {number} milisegundos 
+ * @returns {string}
+ */
+const getTempoRelativo = function (milisegundos) {
+    const /** {Number} */ tempoAtual = new Date().getTime();
+
+    const /** {Number} */ minuto = Math.floor((tempoAtual - milisegundos) / 1000 / 60);
+    const /** {Number} */ hora = Math.floor(minuto / 60);
+    const /** {Number} */ dia = Math.floor(hora / 24);
+
+    return minuto < 1 ? 'Agora mesmo' : minuto < 60 ? `${minuto} min atrás` : hora < 24 ? `${hora} horas atrás` : `${dia} dias atrás`;  
+}
+
 export {
     addEventoEmElementos,
     getSaudacao,
     cadernoAtivo,
     tornaElemEditavel,
-    geraID
+    geraID,
+    encontrarCaderno,
+    encontrarIndiceCaderno,
+    getTempoRelativo
 }
