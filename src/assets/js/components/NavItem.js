@@ -9,7 +9,6 @@ import { ModalConfirmarExclusao } from "./Modal.js";
 const /** {HTMLElement} */ $tituloPainelNotas = document.querySelector('[data-titulo-painel-notas]');
 
 /**
- * 
  * @param {string} id 
  * @param {string} nome
  * @returns {HTMLElement} 

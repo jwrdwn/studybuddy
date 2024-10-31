@@ -4,7 +4,6 @@ const /** {HTMLElement} */ $overlay = document.createElement('div');
 $overlay.classList.add('overlay', 'overlay-modal');
 
 /**
- * 
  * @param {string} [titulo='Sem título']
  * @param {string} [texto='Adicione uma nota...']
  * @param {string} [tempo='']
@@ -20,8 +19,8 @@ const ModalNotas = function (titulo = 'Sem título', texto = 'Adicione uma nota.
             <div class="state-layer"></div>
         </button>
 
-        <input type="text" placeholder="Sem título" value="${titulo}" class="titulo-modal texto-titulo-m" data-campo-nota>
-        <textarea placeholder="Escreva uma nota!" class="texto-modal texto-body-g scrollbar-customizada" data-campo-nota>${texto}</textarea>
+        <input type="text" placeholder="${titulo}" class="titulo-modal texto-titulo-m" data-campo-nota>
+        <textarea placeholder="${texto}" class="texto-modal texto-body-g scrollbar-customizada" data-campo-nota></textarea>
 
         <div class="rodape">
             <span class="hora texto-label-g">${tempo}</span>
@@ -30,7 +29,7 @@ const ModalNotas = function (titulo = 'Sem título', texto = 'Adicione uma nota.
                 <div class="state-layer"></div>
             </button>
         </div>        
-    `
+    `;
 
     const /** {HTMLElement} */ $btnSalvar = $modal.querySelector('[data-submit]');
     $btnSalvar.disabled = true;
@@ -43,7 +42,6 @@ const ModalNotas = function (titulo = 'Sem título', texto = 'Adicione uma nota.
 
     $campoTexto.addEventListener('keyup', ativaEnviar);
     $campoTitulo.addEventListener('keyup', ativaEnviar);
-
 
     const abre = function () {
         document.body.appendChild($modal);
@@ -60,7 +58,6 @@ const ModalNotas = function (titulo = 'Sem título', texto = 'Adicione uma nota.
     $btnFechar.addEventListener('click', fecha);
 
     /**
-     * 
      * @param {Function} callback 
      */
     const envia = function (callback) {
@@ -78,7 +75,6 @@ const ModalNotas = function (titulo = 'Sem título', texto = 'Adicione uma nota.
 }
 
 /**
- * 
  * @param {string} titulo
  * @returns {Object} 
  */

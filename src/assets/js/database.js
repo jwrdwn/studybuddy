@@ -1,6 +1,6 @@
 'use strict';
 
-import { geraID, encontrarCaderno, encontrarIndiceCaderno, encontrarNota } from "./utils.js";
+import { geraID, encontrarCaderno, encontrarIndiceCaderno, encontrarNota, encontrarIndiceNota } from "./utils.js";
 
 let /** {Object} */ studybuddyDB = {};
 
@@ -58,7 +58,7 @@ export const database = {
         },
 
         /**
-         * 
+         * @function
          * @param {string} idCaderno 
          * @param {Object} objeto 
          * @returns {Object}
@@ -154,6 +154,25 @@ export const database = {
             studybuddyDB.cadernos.splice(indiceCaderno, 1);            
 
             writeDatabase();
+        },
+
+        /**
+         * @function
+         * @param {string} idCaderno
+         * @param {string} idNota
+         * @returns {Array<Object>}
+         */
+        nota(idCaderno, idNota) {
+            readDatabase();
+
+            const /** {Object} */ caderno = encontrarCaderno(studybuddyDB, idCaderno);
+            const /** {Number} */ indiceNota = encontrarIndiceNota(caderno, idNota);
+
+            caderno.notas.splice(indiceNota, 1);
+
+            writeDatabase();
+
+            return caderno.notas;
         }
     }
 

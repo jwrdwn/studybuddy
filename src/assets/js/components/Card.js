@@ -2,7 +2,7 @@
 
 import { Tooltip } from "./Tooltip.js";
 import { getTempoRelativo } from "../utils.js";
-import { ModalNotas } from "./Modal.js";
+import { ModalConfirmarExclusao, ModalNotas } from "./Modal.js";
 import { database } from "../database.js";
 import { client } from "../client.js";
 
@@ -22,13 +22,13 @@ export const Card = function (conteudoNota) {
         <p class="texto-nota texto-body-g">${texto}</p>
         <div class="wrapper">
             <span class="hora-nota texto-label-g">${getTempoRelativo(escritoEm)}</span>
-            <button class="icon-btn g" aria-label="Excluir nota" data-tooltip="Excluir nota">
+            <button class="icon-btn g" aria-label="Excluir nota" data-tooltip="Excluir nota" data-btn-excluir>
                 <span class="material-symbols-rounded" aria-hidden="true">delete</span>
                 <div class="state-layer"></div>
             </button>
         </div>
         <div class="state-layer"></div>
-    `
+    `;
 
     Tooltip($card.querySelector('[data-tooltip]'));
 
@@ -40,6 +40,25 @@ export const Card = function (conteudoNota) {
             const conteudoAtualizado = database.update.nota(id, conteudoNota);
 
             client.nota.update(id, conteudoAtualizado);
+
+            modal.fecha();
+        });
+    });
+
+    const /** {HTMLElement} */ $btnExcluir = $card.querySelector('[data-btn-excluir]');
+    $btnExcluir.addEventListener('click', function (evento) {
+        evento.stopImmediatePropagation();
+
+        const /** {Object} */ modal = ModalConfirmarExclusao(titulo);
+
+        modal.abre();
+
+        modal.envia(function (isConfirmar) {
+            if(isConfirmar) {
+                const /** {Array} */ notasExistentes = database.deleta.nota(idCaderno, id);
+
+                client.nota.deleta(id, notasExistentes.length);
+            }
 
             modal.fecha();
         });

@@ -52,21 +52,21 @@ const geraID = function () {
 }
 
 /**
- * @param {Object} db 
+ * @param {Object} database 
  * @param {string} idCaderno
  * @returns {Object | undefined} 
  */
-const encontrarCaderno = function (db, idCaderno) {
-    return db.cadernos.find(caderno => caderno.id === idCaderno);
+const encontrarCaderno = function (database, idCaderno) {
+    return database.cadernos.find(caderno => caderno.id === idCaderno);
 }
 
 /**
- * @param {Object} db 
+ * @param {Object} database 
  * @param {string} idCaderno
  * @returns {number} 
  */
-const encontrarIndiceCaderno = function (db, idCaderno) {
-    return db.cadernos.findIndex(item => item.id === idCaderno);
+const encontrarIndiceCaderno = function (database, idCaderno) {
+    return database.cadernos.findIndex(item => item.id === idCaderno);
 }
 
 /**
@@ -98,6 +98,16 @@ const encontrarNota = (database, idNota) => {
     return nota;
 }
 
+/**
+ * 
+ * @param {Object} database 
+ * @param {string} idCaderno 
+ * @returns {number}
+ */
+const encontrarIndiceNota = function (caderno, idNota) {
+    return caderno.notas.findIndex(nota => nota.id === idNota);
+}
+
 export {
     addEventoEmElementos,
     getSaudacao,
@@ -107,5 +117,6 @@ export {
     encontrarCaderno,
     encontrarIndiceCaderno,
     getTempoRelativo,
-    encontrarNota
+    encontrarNota,
+    encontrarIndiceNota
 }

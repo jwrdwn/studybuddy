@@ -7,7 +7,7 @@ import { Card } from "./components/Card.js";
 const /** {HTMLElement} */ $sidebarLista = document.querySelector('[data-lista-sidebar]');
 const /** {HTMLElement} */ $tituloPainelNotas = document.querySelector('[data-titulo-painel-notas]');
 const /** {HTMLElement} */ $painelNotas = document.querySelector('[data-painel-notas]');
-const /** {Array<Element>} */ $btnCriarNota = document.querySelectorAll('[data-btn-criar-nota]');
+const /** {Array<HTMLElement>} */ $btnCriarNota = document.querySelectorAll('[data-btn-criar-nota]');
 const /** {string} */ templateNotasVazias = `
     <div class="notas-vazias">
         <span class="material-symbols-rounded" aria-hidden="true">note_stack</span>
@@ -97,14 +97,14 @@ export const client = {
 
     nota: {
         /**
-         * @param {Object} conteudoCaderno 
+         * @param {Object} conteudoNota 
          */
-        cria(conteudoCaderno) {
-            if(!$painelNotas.querySelector('[data-caderno]'))
+        cria(conteudoNota) {
+            if(!$painelNotas.querySelector('[data-nota]'))
                 $painelNotas.innerHTML = '';
-
-            const /** {HTMLElement} */ $card = Card(conteudoCaderno);
-            $painelNotas.appendChild($card);
+            
+            const /** {HTMLElement} */ $card = Card(conteudoNota);
+            $painelNotas.prepend($card);
         },
 
         /**
@@ -131,6 +131,16 @@ export const client = {
             const /** {HTMLElement} */ $cardAntigo = document.querySelector(`[data-nota="${idNota}"]`);
             const /** {HTMLElement} */ $cardNovo = Card(conteudoNota);
             $painelNotas.replaceChild($cardNovo, $cardAntigo);
+        },
+
+        /**
+         * @param {string} idNota 
+         * @param {boolean} isNotaExiste 
+         */
+        deleta(idNota, isNotaExiste) {
+            document.querySelector(`[data-nota="${idNota}"]`).remove();
+            if(!isNotaExiste)
+                $painelNotas.innerHTML = templateNotasVazias;
         }
     }
 }

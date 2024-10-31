@@ -348,6 +348,14 @@ body {
     letter-spacing: var(--ls-p-050);
 }
 
+#saudacao {
+    font-weight: 900;
+}
+
+#dia {
+    font-weight: 600;
+}
+
 .material-symbols-rounded {
     width: 1em;
     height: 1em;
@@ -478,11 +486,6 @@ body {
 
 .fab .texto { padding-inline-end: var(--espacamento-2);}
 
-
-
-/**
- * Card
- */
 .nota {
     background-color: var(--surface);
     padding: var(--espacamento-4);
